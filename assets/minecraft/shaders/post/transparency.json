@@ -1,0 +1,124 @@
+{
+    "targets": [
+        { "name": "image_in", "width": 256, "height": 256, "bilinear": false },
+        "image_out",
+        "swap",
+        "main",
+        "water",
+        "translucent",
+        "itemEntity",
+        "particles",
+        "clouds",
+        "weather"
+    ],
+    "passes": [
+        {
+            "name": "transparency",
+            "intarget": "minecraft:main",
+            "outtarget": "main",
+            "auxtargets": [
+                {
+                    "name": "DiffuseDepthSampler",
+                    "id": "minecraft:main:depth"
+                },
+                {
+                    "name": "TranslucentSampler",
+                    "id": "translucent"
+                },
+                {
+                    "name": "TranslucentDepthSampler",
+                    "id": "translucent:depth"
+                },
+                {
+                    "name": "ItemEntitySampler",
+                    "id": "itemEntity"
+                },
+                {
+                    "name": "ItemEntityDepthSampler",
+                    "id": "itemEntity:depth"
+                },
+                {
+                    "name": "ParticlesSampler",
+                    "id": "particles"
+                },
+                {
+                    "name": "ParticlesDepthSampler",
+                    "id": "particles:depth"
+                },
+                {
+                    "name": "CloudsSampler",
+                    "id": "clouds"
+                },
+                {
+                    "name": "CloudsDepthSampler",
+                    "id": "clouds:depth"
+                },
+                {
+                    "name": "WeatherSampler",
+                    "id": "weather"
+                },
+                {
+                    "name": "WeatherDepthSampler",
+                    "id": "weather:depth"
+                }
+            ]
+        },
+        {
+            "name": "util/image",
+            "intarget": "image_out",
+            "auxtargets": [
+                {
+                    "name": "ImageSampler",
+                    "id": "image",
+                    "width": 256,
+                    "height": 256,
+                    "bilinear": true
+                }
+            ],
+            "outtarget": "image_in"
+        },
+        {
+            "name": "util/vertex_edit",
+            "intarget": "image_in",
+            "outtarget": "image_out",
+            "uniforms": [
+                { "name": "_Unscale",       "values": [ 0.0 ] },
+                { "name": "_CropPixel",     "values": [ 0.0 ] },
+                { "name": "_CropResize",    "values": [ 0.0 ] },
+                { "name": "_CropRecenter",  "values": [ 0.0 ] },
+                { "name": "_Crop",          "values": [ 0.0, 0.0, 0.0, 0.0 ] },
+                { "name": "_Stretched",     "values": [ 0.0 ] },
+                { "name": "_StretchMin",    "values": [ 0.0, 0.0 ] },
+                { "name": "_StretchMax",    "values": [ 0.0, 0.0 ] },
+                { "name": "_ScalePixel",    "values": [ 0.0 ] },
+                { "name": "_Scale",         "values": [ 0.0, 0.0 ] },
+                { "name": "_OffsetPixel",   "values": [ 0.0 ] },
+                { "name": "_Offset",        "values": [ 0.0, 0.0 ] },
+                { "name": "_Align",         "values": [ 0.0, 0.0 ] },
+                { "name": "_Flip",          "values": [ 0.0, 0.0 ] },
+                { "name": "_RotPixel",      "values": [ 0.0 ] },
+                { "name": "_RotGlobal",     "values": [ 0.0 ] },
+                { "name": "_RotOrigin",     "values": [ 0.0, 0.0 ] },
+                { "name": "_RotAngle",      "values": [ 0.0 ] },
+                { "name": "_SkewPixel",     "values": [ 0.0 ] },
+                { "name": "_Skew",          "values": [ 0.0, 0.0, 0.0, 0.0 ] }
+            ]
+        },
+        {
+            "name": "util/combine",
+            "intarget": "main",
+            "outtarget": "swap",
+            "auxtargets": [
+                {
+                    "name": "CombineSampler",
+                    "id": "image_out"
+                }
+            ]
+        },
+        {
+            "name": "blit",
+            "intarget": "swap",
+            "outtarget": "minecraft:main"
+        }
+    ]
+}
