@@ -1,10 +1,9 @@
-#version 120
+#version 330
 
-attribute vec4 Position;
-
-varying vec2 fragCoord;
-varying vec2 texCoord;
-varying vec2 inTexCoord;
+in vec4 Position;
+out vec2 texCoord;
+out vec2 fragCoord;
+out vec2 inTexCoord;
 
 uniform mat4 ProjMat;
 uniform vec2 InSize;

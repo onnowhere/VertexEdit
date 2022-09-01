@@ -1,9 +1,10 @@
-#version 120
+#version 330
 
 uniform sampler2D DiffuseSampler;
 
-varying vec2 inTexCoord;
+in vec2 inTexCoord;
+out vec4 fragColor;
 
 void main() {
-    gl_FragColor = texture2D(DiffuseSampler, inTexCoord);
+    fragColor = texture(DiffuseSampler, inTexCoord);
 }
